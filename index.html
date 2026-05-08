@@ -84,6 +84,13 @@
 </div>
 
 <script>
+// Resize Wix iframe to fit within page bounds (page=500px, component y=80 → max 410px)
+function notifyHeight(h) {
+  try { window.parent.postMessage(JSON.stringify({ intent: 'postHeight', height: h }), '*'); } catch(e) {}
+}
+notifyHeight(410);
+window.addEventListener('load', function() { notifyHeight(410); });
+
 document.getElementById('assessmentForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   var btn = document.getElementById('submitBtn');
