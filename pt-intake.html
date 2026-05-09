@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PT Intake Form — Gutted Fitness</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #0d0d0d;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px 16px 40px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px 28px;
+      width: 100%;
+      max-width: 520px;
+    }
+    .logo {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #0d0d0d;
+      margin-bottom: 6px;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+    .divider { border: none; border-top: 1px solid #f0f0f0; margin: 24px 0; }
+    .section-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 16px;
+    }
+    .field { margin-bottom: 18px; }
+    label.field-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #333;
+      margin-bottom: 7px;
+    }
+    .optional { font-size: 10px; color: #bbb; font-weight: 400; letter-spacing: 0; text-transform: none; margin-left: 4px; }
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      width: 100%;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 11px 14px;
+      font-size: 15px;
+      font-family: inherit;
+      color: #1a1a1a;
+      background: #fafafa;
+      outline: none;
+      transition: border-color 0.15s;
+      appearance: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #c8f04a;
+      background: #fff;
+    }
+    textarea { min-height: 88px; resize: vertical; }
+    .select-wrap { position: relative; }
+    .select-wrap::after {
+      content: '▾';
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: #888;
+      font-size: 14px;
+    }
+
+    /* Checkboxes */
+    .checkbox-group { display: flex; flex-direction: column; gap: 9px; }
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .checkbox-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      accent-color: #c8f04a;
+      cursor: pointer;
+    }
+    .checkbox-row span { font-size: 14px; color: #333; }
+
+    /* Stress scale */
+    .stress-scale { display: flex; gap: 6px; }
+    .stress-opt { flex: 1; }
+    .stress-opt input[type="radio"] { display: none; }
+    .stress-opt label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 10px 4px;
+      border-radius: 8px;
+      border: 1.5px solid #e0e0e0;
+      background: #fafafa;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-size: 17px;
+      font-weight: 800;
+      color: #666;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .stress-opt label .lbl {
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #bbb;
+    }
+    .stress-opt input:checked + label {
+      border-color: #c8f04a;
+      background: #f7fce8;
+      color: #0d0d0d;
+    }
+    .stress-opt input:checked + label .lbl { color: #7a9a00; }
+
+    /* Submit */
+    button[type="submit"] {
+      width: 100%;
+      background: #c8f04a;
+      color: #0d0d0d;
+      border: none;
+      border-radius: 10px;
+      padding: 16px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: opacity 0.15s;
+    }
+    button[type="submit"]:hover { opacity: 0.85; }
+    button[type="submit"]:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .error-msg { color: #dc2626; font-size: 13px; margin-top: 12px; text-align: center; display: none; }
+
+    /* Success */
+    .success {
+      display: none;
+      text-align: center;
+      padding: 40px 16px;
+    }
+    .success-icon { font-size: 52px; margin-bottom: 18px; }
+    .success h2 { font-size: 22px; font-weight: 800; color: #0d0d0d; margin-bottom: 8px; }
+    .success p { font-size: 14px; color: #666; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">Gutted Fitness</div>
+    <h1>PT Intake Form</h1>
+    <p class="subtitle">Fill this out before your first session so your coach can build the right program for you.</p>
+
+    <form id="intake-form" novalidate>
+
+      <!-- BASICS -->
+      <div class="field">
+        <label class="field-label">Full Name</label>
+        <input type="text" name="fullName" placeholder="Your full name" required />
+      </div>
+      <div class="field">
+        <label class="field-label">Email</label>
+        <input type="email" name="email" placeholder="your@email.com" required />
+      </div>
+
+      <hr class="divider" />
+      <div class="section-label">Training</div>
+
+      <div class="field">
+        <label class="field-label">Main Goal</label>
+        <div class="select-wrap">
+          <select name="mainGoal" required>
+            <option value="" disabled selected>Select your main goal</option>
+            <option value="Weight Loss">Weight Loss</option>
+            <option value="Build Muscle">Build Muscle</option>
+            <option value="Strength">Strength</option>
+            <option value="General Fitness">General Fitness</option>
+            <option value="Stress Relief">Stress Relief</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Current Fitness Level</label>
+        <div class="select-wrap">
+          <select name="fitnessLevel" required>
+            <option value="" disabled selected>Select your fitness level</option>
+            <option value="Beginner">Beginner — little to no training experience</option>
+            <option value="Intermediate">Intermediate — training regularly for 6+ months</option>
+            <option value="Advanced">Advanced — training consistently for 2+ years</option>
+            <option value="Athlete">Athlete — competitive sports background</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Injuries or Physical Limitations <span class="optional">(optional)</span></label>
+        <textarea name="limitations" placeholder="Any injuries, surgeries, chronic pain, or movements to avoid..."></textarea>
+      </div>
+
+      <hr class="divider" />
+      <div class="section-label">Lifestyle</div>
+
+      <div class="field">
+        <label class="field-label">Biggest Stressors <span class="optional">(select all that apply)</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-row"><input type="checkbox" name="stressors" value="Finances" /><span>Finances</span></label>
+          <label class="checkbox-row"><input type="checkbox" name="stressors" value="Work" /><span>Work</span></label>
+          <label class="checkbox-row"><input type="checkbox" name="stressors" value="Entrepreneurship" /><span>Entrepreneurship</span></label>
+          <label class="checkbox-row"><input type="checkbox" name="stressors" value="Relationships" /><span>Relationships</span></label>
+          <label class="checkbox-row"><input type="checkbox" name="stressors" value="Parenting / Motherhood" /><span>Parenting / Motherhood</span></label>
+          <label class="checkbox-row"><input type="checkbox" name="stressors" value="Body Pain" /><span>Body Pain</span></label>
+          <label class="checkbox-row"><input type="checkbox" name="stressors" value="Mental / Emotional Pain" /><span>Mental / Emotional Pain</span></label>
+          <label class="checkbox-row"><input type="checkbox" name="stressors" value="Other" /><span>Other</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Current Stress Level</label>
+        <div class="stress-scale">
+          <div class="stress-opt"><input type="radio" name="stressRating" id="s1" value="1 - Very Low" /><label for="s1">1<span class="lbl">Very Low</span></label></div>
+          <div class="stress-opt"><input type="radio" name="stressRating" id="s2" value="2 - Low" /><label for="s2">2<span class="lbl">Low</span></label></div>
+          <div class="stress-opt"><input type="radio" name="stressRating" id="s3" value="3 - Moderate" /><label for="s3">3<span class="lbl">Moderate</span></label></div>
+          <div class="stress-opt"><input type="radio" name="stressRating" id="s4" value="4 - High" /><label for="s4">4<span class="lbl">High</span></label></div>
+          <div class="stress-opt"><input type="radio" name="stressRating" id="s5" value="5 - Very High" /><label for="s5">5<span class="lbl">Very High</span></label></div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+      <div class="section-label">Accountability <span class="optional">(optional)</span></div>
+
+      <div class="field">
+        <label class="field-label">Accountability Partner Name <span class="optional">(optional)</span></label>
+        <input type="text" name="partnerName" placeholder="Name of your accountability partner" />
+      </div>
+      <div class="field">
+        <label class="field-label">Accountability Partner Email <span class="optional">(optional)</span></label>
+        <input type="email" name="partnerEmail" placeholder="their@email.com" />
+      </div>
+
+      <button type="submit" id="submit-btn">Submit Intake Form</button>
+      <p class="error-msg" id="error-msg">Something went wrong. Please try again.</p>
+    </form>
+
+    <div class="success" id="success-screen">
+      <div class="success-icon">✅</div>
+      <h2>You're all set!</h2>
+      <p>Your intake form has been submitted. Your coach will review it before your first session.</p>
+    </div>
+  </div>
+
+  <script>
+    // Pre-fill email from URL param ?email=...
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var e = params.get('email');
+      if (e) document.querySelector('input[name="email"]').value = e;
+      var n = params.get('name');
+      if (n) document.querySelector('input[name="fullName"]').value = n;
+    })();
+
+    document.getElementById('intake-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      var btn = document.getElementById('submit-btn');
+      var errMsg = document.getElementById('error-msg');
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+      errMsg.style.display = 'none';
+
+      var form = e.target;
+      var stressors = Array.from(form.querySelectorAll('input[name="stressors"]:checked')).map(function(c) { return c.value; });
+      var stressRatingEl = form.querySelector('input[name="stressRating"]:checked');
+
+      var payload = {
+        fullName:     form.fullName.value.trim(),
+        email:        form.email.value.trim(),
+        mainGoal:     form.mainGoal.value,
+        fitnessLevel: form.fitnessLevel.value,
+        limitations:  form.limitations.value.trim(),
+        stressors:    stressors,
+        stressRating: stressRatingEl ? stressRatingEl.value : '',
+        partnerName:  form.partnerName.value.trim(),
+        partnerEmail: form.partnerEmail.value.trim()
+      };
+
+      try {
+        var res = await fetch('https://dalesolutions.app.n8n.cloud/webhook/intake-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          document.getElementById('intake-form').style.display = 'none';
+          document.getElementById('success-screen').style.display = 'block';
+        } else {
+          throw new Error('bad response');
+        }
+      } catch (err) {
+        errMsg.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Submit Intake Form';
+      }
+    });
+  </script>
+</body>
+</html>
