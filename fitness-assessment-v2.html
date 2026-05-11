@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: auto; background: #111; }
+  body { font-family: Arial, sans-serif; background: #111; color: #fff; padding: 18px 18px 24px; }
+  h2 { text-align: center; margin-bottom: 18px; font-size: 20px; letter-spacing: 1px; }
+  .form-group { margin-bottom: 11px; }
+  label { display: block; margin-bottom: 4px; font-size: 12px; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; }
+  input, textarea, select {
+    width: 100%; padding: 9px 11px;
+    border: 1px solid #333; border-radius: 4px;
+    background: #1e1e1e; color: #fff; font-size: 14px;
+  }
+  input::placeholder, textarea::placeholder { color: #555; }
+  input:focus, select:focus, textarea:focus { border-color: #8B1A1A; box-shadow: 0 0 0 3px rgba(139,26,26,0.2); outline: none; }
+  textarea { resize: vertical; }
+  button {
+    width: 100%; padding: 12px;
+    background: #8B1A1A; color: #fff;
+    border: none; border-radius: 4px;
+    font-size: 15px; font-weight: bold;
+    cursor: pointer; margin-top: 6px;
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  button:hover { background: #a82020; }
+  button:disabled { background: #555; cursor: not-allowed; }
+  #successMsg { display: none; text-align: center; padding: 30px 20px; color: #4caf50; font-size: 18px; }
+  .error { color: #e74c3c; font-size: 12px; margin-top: 4px; }
+</style>
+</head>
+<body>
+<h2>FITNESS ASSESSMENT</h2>
+<form id="assessmentForm">
+  <div class="form-group">
+    <label>Full Name *</label>
+    <input type="text" name="name" required placeholder="Your full name">
+  </div>
+  <div class="form-group">
+    <label>Email *</label>
+    <input type="email" name="email" required placeholder="your@email.com">
+  </div>
+  <div class="form-group">
+    <label>Phone</label>
+    <input type="tel" name="phone" placeholder="(555) 555-5555">
+  </div>
+  <div class="form-group">
+    <label>Date of Birth</label>
+    <input type="date" name="dob">
+  </div>
+  <div class="form-group">
+    <label>Fitness Goals *</label>
+    <textarea name="goals" rows="3" required placeholder="What are your fitness goals?"></textarea>
+  </div>
+  <div class="form-group">
+    <label>Current Fitness Level</label>
+    <select name="fitness_level">
+      <option value="">Select...</option>
+      <option value="Beginner">Beginner</option>
+      <option value="Intermediate">Intermediate</option>
+      <option value="Advanced">Advanced</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Injuries or Medical Conditions</label>
+    <textarea name="injuries" rows="3" placeholder="List any injuries, conditions, or limitations (type 'none' if none)"></textarea>
+  </div>
+  <div class="form-group">
+    <label>Training days per week</label>
+    <select name="training_days">
+      <option value="">Select...</option>
+      <option value="1-2 days">1-2 days</option>
+      <option value="3-4 days">3-4 days</option>
+      <option value="5+ days">5+ days</option>
+    </select>
+  </div>
+  <button type="submit" id="submitBtn">SUBMIT ASSESSMENT</button>
+</form>
+<div id="successMsg">
+  <p>✓ Assessment submitted!</p>
+  <p style="font-size:14px;color:#aaa;margin-top:8px;">Christie will review and be in touch soon.</p>
+</div>
+
+<script>
+document.getElementById('assessmentForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'SUBMITTING...';
+  var data = {};
+  new FormData(this).forEach(function(v, k) { data[k] = v; });
+  try {
+    await fetch('https://dalesolutions.app.n8n.cloud/webhook/fitness-assessment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    document.getElementById('assessmentForm').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  } catch(err) {
+    btn.disabled = false;
+    btn.textContent = 'SUBMIT ASSESSMENT';
+    alert('Submission failed. Please try again.');
+  }
+});
+</script>
+</body>
+</html>
