@@ -231,6 +231,8 @@
     <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
   </form>
 
+  <p id="dbg" style="color:#555;font-size:10px;text-align:center;padding:4px 0;"></p>
+
   <div id="successMsg">
     <div class="check">&#x2713;</div>
     <p class="msg">Assessment saved!</p>
@@ -244,7 +246,11 @@ function sendHeight() {
   try { window.parent.postMessage(h, '*'); } catch(e) {}
   try { window.parent.postMessage(JSON.stringify({ height: h }), '*'); } catch(e) {}
 }
-window.addEventListener('load', sendHeight);
+window.addEventListener('load', function() {
+  sendHeight();
+  var dbg = document.getElementById('dbg');
+  if (dbg) dbg.textContent = 'w:' + window.innerWidth + ' h:' + document.body.scrollHeight;
+});
 setTimeout(sendHeight, 100);
 setTimeout(sendHeight, 500);
 
