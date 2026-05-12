@@ -192,9 +192,13 @@
     text-align: center;
   }
   @media (max-width: 500px) {
+    body { padding: 0; }
+    .container { border-radius: 0; max-width: 100%; }
+    .header { padding: 20px 16px; }
+    .header h1 { font-size: 17px; letter-spacing: 2px; }
+    .waiver-text { margin: 16px 0 0; padding: 16px; font-size: 12px; }
+    form { padding: 16px; }
     .row { flex-direction: column; gap: 0; }
-    form { padding: 20px; }
-    .waiver-text { margin: 20px 16px 0; }
     html, body { overflow-x: hidden; }
   }
 </style>
