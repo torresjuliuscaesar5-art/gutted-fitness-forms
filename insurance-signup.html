@@ -5,11 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: auto; background: #111; overflow-x: hidden; }
-  body { font-family: Arial, sans-serif; background: #111; color: #fff; padding: 28px 20px 20px; }
-  .form-wrap { width: 100%; }
-  h2 { text-align: center; margin-bottom: 6px; font-size: 18px; letter-spacing: 1px; text-transform: uppercase; }
-  .subtitle { text-align: center; font-size: 12px; color: #aaa; margin-bottom: 16px; letter-spacing: 0.5px; }
+  html, body { height: auto; overflow-x: hidden; }
+  body { font-family: Arial, sans-serif; background: #000; color: #fff; padding: 20px; }
+  .card {
+    max-width: 720px;
+    margin: 0 auto;
+    background: #111;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 28px 36px 32px;
+  }
+  h2 { text-align: center; margin-bottom: 6px; font-size: 20px; letter-spacing: 3px; text-transform: uppercase; }
+  .subtitle { text-align: center; font-size: 12px; color: #aaa; margin-bottom: 20px; letter-spacing: 1px; text-transform: uppercase; }
   .step-box {
     background: #1a1a1a;
     border: 1px solid #333;
@@ -25,12 +32,7 @@
     font-weight: bold;
     margin-bottom: 6px;
   }
-  .step-text {
-    font-size: 13px;
-    color: #ccc;
-    line-height: 1.5;
-    margin-bottom: 10px;
-  }
+  .step-text { font-size: 13px; color: #ccc; line-height: 1.5; margin-bottom: 10px; }
   .step-text strong { color: #fff; }
   .ext-btn {
     display: block;
@@ -48,8 +50,16 @@
     cursor: pointer;
   }
   .ext-btn:hover { background: #444; }
-  .divider { border: none; border-top: 1px solid #222; margin: 4px 0 14px; }
-  .form-group { margin-bottom: 10px; }
+  .divider { border: none; border-top: 1px solid #333; margin: 4px 0 16px; }
+  .form-section-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #8B1A1A;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+  .form-group { margin-bottom: 12px; }
   label { display: block; margin-bottom: 3px; font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; }
   input, select {
     width: 100%; padding: 8px 10px;
@@ -65,69 +75,69 @@
     background: #8B1A1A; color: #fff;
     border: none; border-radius: 4px;
     font-size: 15px; font-weight: bold;
-    cursor: pointer; margin-top: 6px;
+    cursor: pointer; margin-top: 8px;
     letter-spacing: 1px; text-transform: uppercase;
   }
   button[type="submit"]:hover { background: #a82020; }
   button[type="submit"]:disabled { background: #555; cursor: not-allowed; }
-  #successMsg { display: none; text-align: center; padding: 24px 16px; color: #4caf50; font-size: 16px; }
+  #successMsg { display: none; text-align: center; padding: 24px 0; color: #4caf50; font-size: 16px; }
   #successMsg p.sub { font-size: 13px; color: #aaa; margin-top: 8px; }
   .error { color: #e74c3c; font-size: 12px; margin-top: 6px; text-align: center; display: none; }
 </style>
 </head>
 <body>
-<div class="form-wrap">
-<h2>Insurance Membership</h2>
-<p class="subtitle">One Pass Select &bull; Aaptiv Access &bull; Renew Active</p>
+<div class="card">
+  <h2>Insurance Membership</h2>
+  <p class="subtitle">One Pass Select &bull; Aaptiv Access &bull; Renew Active</p>
 
-<div class="step-box">
-  <div class="step-label">Step 1 &mdash; Confirm Your Eligibility</div>
-  <p class="step-text">
-    Visit the link below to confirm your insurance covers Gutted Fitness and get your <strong>Member Code</strong> (starts with A or S, 10 characters total).
-  </p>
-  <a class="ext-btn" href="https://www.partneroptumfitness.com" target="_blank">Check Eligibility at PartnerOptumFitness.com &rarr;</a>
-</div>
+  <div class="step-box">
+    <div class="step-label">Step 1 &mdash; Confirm Your Eligibility</div>
+    <p class="step-text">
+      Visit the link below to confirm your insurance covers Gutted Fitness and get your <strong>Member Code</strong> (starts with A or S, 10 characters total).
+    </p>
+    <a class="ext-btn" href="https://www.partneroptumfitness.com" target="_blank">Check Eligibility at PartnerOptumFitness.com &rarr;</a>
+  </div>
 
-<hr class="divider">
+  <hr class="divider">
 
-<div class="step-label" style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#8B1A1A;font-weight:bold;margin-bottom:12px;">Step 2 &mdash; Register with Your Code</div>
+  <div class="form-section-label">Step 2 &mdash; Register with Your Code</div>
 
-<form id="insuranceForm">
-  <div class="form-group">
-    <label>Full Name *</label>
-    <input type="text" name="fullName" required placeholder="First Last">
-  </div>
-  <div class="form-group">
-    <label>Email *</label>
-    <input type="email" name="email" required placeholder="you@email.com">
-  </div>
-  <div class="form-group">
-    <label>Phone</label>
-    <input type="tel" name="phone" placeholder="(555) 555-5555">
-  </div>
-  <div class="form-group">
-    <label>Insurance Plan *</label>
-    <select name="insurancePlan" required>
-      <option value="">Select your plan...</option>
-      <option value="One Pass Select">One Pass Select</option>
-      <option value="Aaptiv Access">Aaptiv Access</option>
-      <option value="Renew Active">Renew Active (UnitedHealthcare Medicare)</option>
-      <option value="Other UHC Medicare">Other UHC Medicare Fitness Benefit</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label>Member Code *</label>
-    <input type="text" name="memberCode" required placeholder="A123456789" maxlength="10" style="text-transform:uppercase;" oninput="this.value=this.value.toUpperCase()">
-    <p class="code-hint">10-character code from your insurance plan (e.g. A123456789)</p>
-  </div>
-  <p class="error" id="errorMsg">Please fill in all required fields.</p>
-  <button type="submit" id="submitBtn">REGISTER FOR 6 CLASSES/MONTH</button>
-</form>
+  <form id="insuranceForm">
+    <div class="form-group">
+      <label>Full Name *</label>
+      <input type="text" name="fullName" required placeholder="First Last">
+    </div>
+    <div class="form-group">
+      <label>Email *</label>
+      <input type="email" name="email" required placeholder="you@email.com">
+    </div>
+    <div class="form-group">
+      <label>Phone</label>
+      <input type="tel" name="phone" placeholder="(555) 555-5555">
+    </div>
+    <div class="form-group">
+      <label>Insurance Plan *</label>
+      <select name="insurancePlan" required>
+        <option value="">Select your plan...</option>
+        <option value="One Pass Select">One Pass Select</option>
+        <option value="Aaptiv Access">Aaptiv Access</option>
+        <option value="Renew Active">Renew Active (UnitedHealthcare Medicare)</option>
+        <option value="Other UHC Medicare">Other UHC Medicare Fitness Benefit</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Member Code *</label>
+      <input type="text" name="memberCode" required placeholder="A123456789" maxlength="10" style="text-transform:uppercase;" oninput="this.value=this.value.toUpperCase()">
+      <p class="code-hint">10-character code from your insurance plan (e.g. A123456789)</p>
+    </div>
+    <p class="error" id="errorMsg">Please fill in all required fields.</p>
+    <button type="submit" id="submitBtn">REGISTER FOR 6 CLASSES/MONTH</button>
+  </form>
 
-<div id="successMsg">
-  <p>&#x2713; You are registered!</p>
-  <p class="sub">Christie will confirm your membership within 24 hours. You will receive an email with next steps.</p>
-</div>
+  <div id="successMsg">
+    <p>&#x2713; You are registered!</p>
+    <p class="sub">Christie will confirm your membership within 24 hours. You will receive an email with next steps.</p>
+  </div>
 </div>
 
 <script>
