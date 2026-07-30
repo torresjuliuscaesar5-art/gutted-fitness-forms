@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>I'm in the Zone — Share Your Challenge</title>
+<style>
+  :root{
+    --red:#C41E3A;
+    --ink:#0d0d0d;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:#161616;
+    font-family:'Arial Black',Arial,Helvetica,sans-serif;
+    color:#fff;
+    padding:24px 16px 60px;
+    display:flex;flex-direction:column;align-items:center;
+  }
+  .intro{max-width:560px;text-align:center;margin-bottom:26px;font-family:Arial,Helvetica,sans-serif}
+  .intro h1{font-size:22px;letter-spacing:.5px;margin-bottom:10px}
+  .intro p{font-size:15px;line-height:1.6;color:#c9c9c9}
+
+  /* ---- the shareable graphic (1080x1080 scaled) ---- */
+  #card{
+    width:min(540px,92vw);
+    aspect-ratio:1/1;
+    background:
+      radial-gradient(circle at 78% 18%, rgba(196,30,58,.28), transparent 55%),
+      linear-gradient(160deg,#191919 0%, #0b0b0b 100%);
+    border:1px solid #2a2a2a;
+    position:relative;
+    overflow:hidden;
+    display:flex;flex-direction:column;justify-content:space-between;
+    padding:7% 7% 6%;
+  }
+  /* faint Z watermark, echoes the studio wall */
+  #card::after{
+    content:"Z";
+    position:absolute;right:-6%;bottom:-16%;
+    font-size:62vw;max-font-size:340px;
+    line-height:.8;color:rgba(255,255,255,.035);
+    font-family:'Arial Black',Arial,sans-serif;
+    pointer-events:none;
+  }
+  .brand{
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:11px;letter-spacing:3.5px;color:#8f8f8f;
+    text-transform:uppercase;position:relative;z-index:2;
+  }
+  .headline{position:relative;z-index:2}
+  .headline .im{
+    display:block;font-size:clamp(30px,8.4vw,50px);line-height:.98;
+    letter-spacing:-1px;text-transform:uppercase;
+  }
+  .headline .zone{
+    display:block;font-size:clamp(46px,13.4vw,80px);line-height:.9;
+    color:var(--red);text-transform:uppercase;letter-spacing:-2px;
+    text-shadow:0 3px 0 rgba(0,0,0,.35);
+  }
+  .headline .are{
+    display:block;margin-top:10px;
+    font-size:clamp(20px,5.4vw,32px);line-height:1;
+    text-transform:uppercase;letter-spacing:1px;color:#fff;
+  }
+  .rule{height:3px;width:64px;background:var(--red);margin:16px 0;position:relative;z-index:2}
+  .meta{position:relative;z-index:2;font-family:Arial,Helvetica,sans-serif}
+  .meta .prog{
+    font-size:clamp(13px,3.4vw,17px);font-weight:bold;letter-spacing:.4px;
+    text-transform:uppercase;color:#fff;margin-bottom:7px;
+  }
+  .meta .when{font-size:clamp(11px,2.9vw,14px);color:#bdbdbd;letter-spacing:.6px}
+  .meta .where{font-size:clamp(10px,2.6vw,12px);color:#7d7d7d;margin-top:9px;letter-spacing:.5px}
+
+  /* ---- actions ---- */
+  .actions{width:min(540px,92vw);margin-top:22px;font-family:Arial,Helvetica,sans-serif}
+  .btn{
+    display:block;width:100%;text-align:center;cursor:pointer;
+    background:var(--red);color:#fff;border:0;
+    padding:16px;font-size:15px;font-weight:bold;border-radius:6px;
+    font-family:Arial,Helvetica,sans-serif;
+  }
+  .btn:active{transform:translateY(1px)}
+  .hint{font-size:13px;color:#9a9a9a;text-align:center;margin-top:12px;line-height:1.55}
+  .caption{
+    margin-top:26px;background:#1f1f1f;border:1px solid #2e2e2e;
+    border-radius:8px;padding:16px;
+  }
+  .caption h2{font-size:12px;letter-spacing:2px;color:#8f8f8f;text-transform:uppercase;margin-bottom:10px;font-family:Arial,Helvetica,sans-serif}
+  .caption p{font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.65;color:#e2e2e2}
+  .copy{
+    margin-top:12px;background:transparent;border:1px solid #3a3a3a;color:#e2e2e2;
+    padding:11px 16px;border-radius:6px;font-size:13px;cursor:pointer;width:100%;
+    font-family:Arial,Helvetica,sans-serif;
+  }
+  .copy.done{border-color:var(--red);color:#fff}
+</style>
+</head>
+<body>
+
+  <div class="intro">
+    <h1>You're in. Let people know.</h1>
+    <p>Save the graphic below, post it, and tag a friend who needs this too. Accountability starts the second you say it out loud.</p>
+  </div>
+
+  <div id="card">
+    <div class="brand">Gutted Fitness &nbsp;·&nbsp; The Zone</div>
+
+    <div class="headline">
+      <span class="im">I'm in the</span>
+      <span class="zone">Zone</span>
+      <span class="are">Are you?</span>
+    </div>
+
+    <div class="meta">
+      <div class="rule"></div>
+      <div class="prog">21 Day Release + Rebuild</div>
+      <div class="when">Starts August 9 &nbsp;|&nbsp; Release the stress. Rebuild the body.</div>
+      <div class="where">2650 Locust St, St. Louis</div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn" id="save">Save My Graphic</button>
+    <p class="hint" id="hint">On a phone you can also press and hold the image to save it.</p>
+
+    <div class="caption">
+      <h2>Caption you can steal</h2>
+      <p id="cap">I just signed up for the 21 Day Release + Rebuild at Gutted Fitness. 21 days to release the stress, rebuild my body, and stop pushing through pain like it's normal. Starts August 9. Who's coming with me?</p>
+      <button class="copy" id="copyBtn">Copy this caption</button>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+  document.getElementById('save').addEventListener('click', function(){
+    var hint = document.getElementById('hint');
+    var card = document.getElementById('card');
+    if (typeof html2canvas !== 'function') {
+      hint.textContent = 'Press and hold the image above to save it.';
+      return;
+    }
+    html2canvas(card, { backgroundColor: '#0b0b0b', scale: 2, useCORS: true }).then(function(canvas){
+      canvas.toBlob(function(blob){
+        if (!blob) { hint.textContent = 'Press and hold the image above to save it.'; return; }
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'im-in-the-zone.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+        hint.textContent = 'Saved. Now post it and tag a friend.';
+      });
+    }).catch(function(){
+      hint.textContent = 'Press and hold the image above to save it.';
+    });
+  });
+
+  document.getElementById('copyBtn').addEventListener('click', function(){
+    var btn = this;
+    var text = document.getElementById('cap').textContent.trim();
+    function done(){ btn.textContent = 'Copied'; btn.classList.add('done'); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function(){
+        var r = document.createRange(); r.selectNodeContents(document.getElementById('cap'));
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); done();
+      });
+    } else {
+      var r = document.createRange(); r.selectNodeContents(document.getElementById('cap'));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); done();
+    }
+  });
+</script>
+</body>
+</html>
